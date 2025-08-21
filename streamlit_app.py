@@ -76,7 +76,7 @@ else:
     KST = ZoneInfo('Asia/Seoul')
     now = datetime.now(KST).strftime('%Y-%m-%d (%a) %H:%M')
     
-    col1, col2, col3 = st.columns([1, 1, 2])
+    col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
         st.markdown(f'**🙍‍♀️ 상담사:** Julia')
     with col3:
