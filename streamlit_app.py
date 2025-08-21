@@ -68,11 +68,11 @@ else:
         st.markdown(f'##### {now}')
     st.divider()
     
+    st.sidebar.image('img/툭툭이.png', width=150)
     st.sidebar.header('상담사 메뉴')
     choice = st.sidebar.radio(
                 '메뉴 선택',
-                ['--- 선택하세요 ---', '상담 시작하기', '나의 상담 이력', '검색하기', '설정'],
-                
+                ['--- 선택하세요 ---', '상담 시작하기', '나의 상담 이력', '검색하기', '설정'],                
             )
     
     if choice == '--- 선택하세요 ---':
@@ -84,20 +84,27 @@ else:
         show_category_charts(data)
           
     elif choice == '상담 시작하기':
-        st.subheader('🟢상담하기🟢')
-        start = st.toggle('start!')
+        st.subheader('🎧 상담하기')
+        
+        col1, col2, col3 = st.columns([0.5, 1, 10])
+        with col2:
+            start = st.select_slider(
+                        '상태',
+                        options=['OFF', 'ON'],
+                        value='OFF',
+                        label_visibility='collapsed'
+                    )
         
         col1, col2 = st.columns([2,1]) 
-        if start:
+        if start == 'ON':
             with col2:    
                 st.text_area('툭툭의 추천 응답', placeholder='자동 생성')
             with col1:
                 st.text_input('고객명', placeholder='고객명을 입력해주세요')
                 st.text_area('대화 내용', placeholder='자동 출력 창')
-                
-        
-        memo = st.text_area('상담 메모')
-        st.button('저장')
+                        
+            memo = st.text_area('상담 메모')
+            st.button('저장')
 
     elif choice == '나의 상담 이력':
         st.subheader('나의 상담 이력')
@@ -116,11 +123,11 @@ else:
 
             col1, col2, col3, col4 = st.columns(4)
             with col1:
-                st.metric("총 상담 건수", total)
+                st.metric("총 상담 건수", total, delta='+2')
             with col2:
                 st.metric("고객 수", customer)
             with col3:
-                st.metric("완료 건수", done)
+                st.metric("완료 건수", done, delta='+1')
             with col4:
                 st.metric("완료율 (%)", done_rate)
             
