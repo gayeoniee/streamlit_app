@@ -12,7 +12,6 @@ data = pd.DataFrame({
         })
 
 def show_category_charts(data):
-    st.set_page_config(layout="wide")
     col1, col2 = st.columns([1, 1])    
     result = data['결과'].value_counts().reset_index()
     result.columns = ['결과', '상담건수']
@@ -81,10 +80,8 @@ else:
         st.markdown(f'**🙍‍♀️ 상담사:** Julia')
     with col3:
         st.markdown(f'##### {now}')
-    st.markdown('---')
-    
-    
-    st.sidebar.image('img/툭툭이.png', width=150)
+    st.write(" ")
+    st.sidebar.image('img/툭툭이.png', width=100)
     st.sidebar.header('상담사 메뉴')
     choice = st.sidebar.radio(
                 '메뉴 선택',
