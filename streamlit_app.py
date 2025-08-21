@@ -12,28 +12,43 @@ data = pd.DataFrame({
         })
 
 def show_category_charts(data):
+    st.set_page_config(layout="wide")
     col1, col2 = st.columns([1, 1])    
     result = data['결과'].value_counts().reset_index()
     result.columns = ['결과', '상담건수']
     fig_pie = px.pie(
         result, names='결과', values='상담건수', title='결과별 상담 건수', 
-        hole=0.3, color_discrete_sequence=px.colors.qualitative.Set3
+        hole=0.3, color_discrete_sequence=px.colors.qualitative.Set3,
     )
     with col1:
+        fig_pie.update_layout(
+                margin=dict(l=0, r=0, t=30, b=0),
+                height=200
+            )
         st.plotly_chart(fig_pie)
     
     detail = data['내용'].value_counts().reset_index()
     detail.columns = ['내용', '상담건수']
     fig_pie2 = px.pie(
         detail, names='내용', values='상담건수', title='내용별 상담 건수', 
-        hole=0.3, color_discrete_sequence=px.colors.qualitative.Set3
+        hole=0.3, color_discrete_sequence=px.colors.qualitative.Set3,
     )
     with col2:
+        fig_pie2.update_layout(
+                margin=dict(l=0, r=0, t=30, b=0),
+                height=200
+            )
         st.plotly_chart(fig_pie2)
     
     daily = data.groupby('일자').size().reset_index(name='상담건수')
     fig_bar = px.bar(daily, x='일자', y='상담건수', title='일자별 상담 건수',
                         color='일자', color_discrete_sequence=px.colors.qualitative.Pastel)
+        
+    fig_bar.update_layout(
+                margin=dict(l=0, r=0, t=30, b=0),
+                height=300
+            )
+    fig_bar.update_xaxes(dtick='D1', tickformat='%Y-%m-%d')
     st.plotly_chart(fig_bar)
     
 
@@ -66,7 +81,8 @@ else:
         st.markdown(f'**🙍‍♀️ 상담사:** Julia')
     with col3:
         st.markdown(f'##### {now}')
-    st.divider()
+    st.markdown('---')
+    
     
     st.sidebar.image('img/툭툭이.png', width=150)
     st.sidebar.header('상담사 메뉴')
