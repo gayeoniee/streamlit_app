@@ -39,6 +39,7 @@ def show_category_charts(data):
             )
         st.plotly_chart(fig_pie2)
     
+    col1, col2, col3 = st.columns([1, 3, 1])
     daily = data.groupby('일자').size().reset_index(name='상담건수')
     fig_bar = px.bar(daily, x='일자', y='상담건수', title='일자별 상담 건수',
                         color='일자', color_discrete_sequence=px.colors.qualitative.Pastel)
@@ -48,7 +49,8 @@ def show_category_charts(data):
                 height=300
             )
     fig_bar.update_xaxes(dtick='D1', tickformat='%Y-%m-%d')
-    st.plotly_chart(fig_bar)
+    with col2:
+        st.plotly_chart(fig_bar)
     
 
 if 'login' not in st.session_state:
